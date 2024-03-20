@@ -4,7 +4,7 @@
     $json_dati = file_get_contents('php://input');
     $dati_user = json_decode($json_dati, true);
     $username=$dati_user['username'];
-    $passw=$dati_user['passw'];
+    $passw=md5($dati_user['passw']);
             
     $query = "SELECT * FROM user WHERE username = ? AND passw = ?";
     $stmt = $mysqli->prepare($query);
@@ -15,12 +15,14 @@
     $stmt->close();
 
     if ( is_array($result_usr) && count($result_usr) == 1 ) {
-        echo "Ciao ". $result_usr[0]['username'];
+        //echo "Ciao ". $result_usr[0]['username'];
         $json_user = json_encode($result_usr);
         return $json_user;
 
     } 
     else {
-            echo "Nessun utente trovato";
+        //echo "Nessun utente trovato";
+        $json_user = json_encode(0);
+        return $json_user;
     }
 ?>

@@ -1,20 +1,22 @@
 <?php
 include "conn_db.php";
 
-$email = $_POST['email'];
-$first_name = $_POST['frist_name'];
-$last_name = $_POST['last_name'];
-$username = $_POST['username'];
-$passw = hash('sha256', $_POST['passw']);
-$img = $_POST['img'];
+$json_dati = file_get_contents('php://input');
+$dati_user = json_decode($json_dati, true);
+$email = $dati_user['email'];
+$first_name = $dati_user['firstName'];
+$last_name = $dati_user['lastName'];
+$username = $dati_user['username'];
+$passw = hash('sha256', $dati_user['passw']);
+$img = $dati_user['img'];
 
-$query = "UPDATE user SET first_name = ? WHERE email = ?";   
+$query = "UPDATE user SET firstName = ? WHERE email = ?";   
 
 $stmt = $mysqli->prepare($query);
 $stmt->bind_param("ssssss",
     $email, 
-    $first_name, 
-    $last_name,
+    $firstName, 
+    $lastName,
     $username,
     $passw,
     $img

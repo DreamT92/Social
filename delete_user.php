@@ -1,17 +1,17 @@
 <?php
 include "conn_db.php";
 
-if( isset($_GET['go_delete']) && $_GET['go_delete'] == 1 ) {    
+$json_dati = file_get_contents('php://input');
+$dati_user = json_decode($json_dati, true);
+$userId=$dati_user[$userId];
 
-    $query = "DELETE FROM user WHERE id_user = ?";
+$query = "DELETE FROM user WHERE userId = ?";
 
-    $stmt = $mysqli->prepare($query);
-    $stmt->bind_param("s", $email, $first_name, $last_name, $username, $passw, $img);
+$stmt = $mysqli->prepare($query);
+$stmt->bind_param("s", $email, $firstName, $lastName, $username, $passw, $img);
     
-    $stmt->execute();
-    $affected_rows = $stmt->affected_rows;
-    $stmt->close();
+$stmt->execute();
+$affected_rows = $stmt->affected_rows;
+$stmt->close();
     
-    echo "<p>Righe eliminate: $affected_rows</p>";
 
-}

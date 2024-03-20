@@ -1,21 +1,23 @@
 <?php
 include "conn_db.php";
 
-if( isset($_POST['go_insert']) && $_POST['go_insert'] == 1 ) {      
-$email = $_POST['email'];
-$first_name = $_POST['frist_name'];
-$last_name = $_POST['last_name'];
-$username = $_POST['username'];
-$passw = hash('sha256', $_POST['passw']);
-$img = $_POST['img'];
+$json_dati = file_get_contents('php://input');
+$dati_user = json_decode($json_dati, true);
 
-$query = "INSERT INTO user (email, first_name, last_name, username, passw, img) VALUES (?, ?, ?, ?, ?, ?)";
+$email = $dati_user['email'];
+$first_name = $dati_user['firstName'];
+$last_name = $dati_user['lastName'];
+$username = $dati_user['username'];
+$passw = hash('sha256', $_POST['passw']);
+$img = $dati_user['img'];
+
+$query = "INSERT INTO user (email, firstName, lastName, username, passw, img) VALUES (?, ?, ?, ?, ?, ?)";
 $stmt = $mysqli->prepare($query);
 
 $stmt->bind_param("ssssss",
     $email, 
-    $first_name, 
-    $last_name,
+    $firstName, 
+    $lastName,
     $username,
     $passw,
     $img
@@ -24,4 +26,3 @@ $stmt->bind_param("ssssss",
 $stmt->execute();
 $result = $stmt->insert_id;
 $stmt->close();
-}
