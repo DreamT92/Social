@@ -15,14 +15,9 @@
     $stmt->close();
 
     if ( is_array($result_usr) && count($result_usr) == 1 ) {
-        //echo "Ciao ". $result_usr[0]['username'];
-        $json_user = json_encode($result_usr);
-        return $json_user;
-
+        echo json_encode('Login effettuato');
     } 
     else {
-        //echo "Nessun utente trovato";
-        $json_user = json_encode(0);
-        return $json_user;
+        echo json_encode('Nessun utente trovato');
     }
 ?>

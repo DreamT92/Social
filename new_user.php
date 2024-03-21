@@ -26,3 +26,6 @@ $stmt->bind_param("ssssss",
 $stmt->execute();
 $result = $stmt->insert_id;
 $stmt->close();
+
+echo json_encode('Registrazione avvenuta con successo');
+

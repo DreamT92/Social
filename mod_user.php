@@ -28,3 +28,5 @@ $stmt->bind_param("ssssssi",
 $stmt->execute();
 $affected_rows = $stmt->affected_rows;
 $stmt->close();
+
+echo json_encode('Modifica utente avvenuta con successo');

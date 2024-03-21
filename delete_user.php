@@ -14,4 +14,4 @@ $stmt->execute();
 $affected_rows = $stmt->affected_rows;
 $stmt->close();
     
-
+echo json_encode('Eliminazione effettuata con successo');
